@@ -1,0 +1,9 @@
+export const GET_GISTS = 'GET_GISTS'
+export const GET_GISTS_SUCCESS = 'GET_GISTS_SUCCESS';
+export const GET_GISTS_FAIL = 'GET_GISTS_FAIL';
+
+export const GET_ONE_GIST = 'GET_ONE_GIST'
+export const GET_ONE_GIST_SUCCESS = 'GET_ONE_GIST_SUCCESS';
+export const GET_ONE_GIST_FAIL = 'GET_ONE_GIST_FAIL';
+
+export const HIDE_ERROR = 'HIDE_ERROR';
