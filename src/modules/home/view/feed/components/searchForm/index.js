@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getGists } from '../../../../../../services/getGists/actions';
-import { connect } from 'react-redux';
+import * as ActionTypes from '../../../../../../services/getGists/types';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Input = styled.input`
     margin-left:5px;
@@ -36,18 +36,24 @@ const Spinners = styled.div`
 `;
 
 
-const SearchForm = ({ getGists, loading }) => {
+const SearchForm = () => {
     const [page, setPage] = useState(0)
     const [itemByPage, setItemByPage] = useState(0);
+
+    const loading = useSelector(state => state.gists.loading);
+    const dispatch = useDispatch();
 
     const changeInputHandler = event => {
         setItemByPage(event.target.value)
     }
 
     const submitHandler = () => {
-        getGists({
-            page: page && page >= 0 ? page : 0,
-            itemByPage: itemByPage && itemByPage >= 0 ? itemByPage : 15
+        dispatch({
+            type: ActionTypes.GET_GISTS,
+            payload: {
+                page: page && page >= 0 ? page : 0,
+                itemByPage: itemByPage && itemByPage >= 0 ? itemByPage : 15
+            }
         });
     }
 
@@ -100,12 +106,4 @@ const SearchForm = ({ getGists, loading }) => {
     );
 }
 
-const mapStateToProps = state => ({
-    loading: state.gists.loading
-})
-
-const mapDispatchToProps = {
-    getGists
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+export default SearchForm;

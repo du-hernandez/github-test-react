@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { GistDetailCard } from '../../../../elements';
-import { getOneGist, hideError } from '../../../../services/getGists/actions';
+import { useSelector, useDispatch } from "react-redux";
+import * as ActionTypes from '../../../../services/getGists/types';
 
 
 const Spinners = styled.div`
@@ -12,13 +12,18 @@ const Spinners = styled.div`
     left:50%;
 `;
 
-const GistDetail = ({ getOneGist, gist, loading }) => {
+const GistDetail = () => {
+    const gist = useSelector(state => state.gists.gistSelected);
     const { id } = useParams();
-    useEffect(() => {
-        getOneGist(id || '74a5b086db0c5af484be6cf854556a8a');
-    }, []);
-
     
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({
+            type: ActionTypes.GET_ONE_GIST,
+            payload: { id: id || '74a5b086db0c5af484be6cf854556a8a' }
+        });
+    }, [id])
 
     if (!gist)
         return (
@@ -36,15 +41,4 @@ const GistDetail = ({ getOneGist, gist, loading }) => {
     );
 };
 
-const mapStateToProps = state => ({
-    gist: state.gists.gistSelected,
-    loading: state.gists.loading,
-    error: state.gists.error
-})
-
-const mapDispatchToProps = {
-    getOneGist,
-    hideError
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GistDetail);
+export default GistDetail;

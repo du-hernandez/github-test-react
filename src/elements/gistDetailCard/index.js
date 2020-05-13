@@ -28,7 +28,7 @@ const Paragraph = styled.p`
 `;
 
 const GistDetailCard = ({ gist }) => {
-    const { owner, description, created_at, id } = gist;
+    const { owner, description, created_at } = gist;
     const { login: name, avatar_url: image } = owner;
     return (
         <Container>

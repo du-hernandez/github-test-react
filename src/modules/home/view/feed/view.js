@@ -12,7 +12,7 @@ const FormContainer = styled(Container)`
 `;
 
 const FeedView = ({ gists }) => {
-    const { error, loading, pageActive, gists: data } = gists;
+    const { pageActive, gists: data } = gists;
 
     let gistActive = [];
     if (data.length !== 0) {
